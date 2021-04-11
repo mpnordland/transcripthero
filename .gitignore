@@ -1,0 +1,17 @@
+venv/
+*.pyc
+*.egg-info/
+dist/
+settings.cfg
+*.log*
+.vscode/
+instance/
+migrations/
+*.side
+*.db
+.coverage
+
+*-backup.zip
+*.sql
+
+config/
