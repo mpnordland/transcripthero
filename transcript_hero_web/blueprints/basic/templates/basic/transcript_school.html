@@ -1,0 +1,37 @@
+{% extends 'basic/transcript_base.html' %}
+{% block student_pip %}checked{% endblock %}
+{% block school_pip %}full{% endblock %}
+{% block form %}
+{{ form.hidden_tag() }}
+<input type="hidden" value="{{page}}" name="page">
+{{ render_field_with_errors(form.school_name)}}
+{% if transcript.school_address %}
+{% if transcript.school_address.country == 'United States' %}
+{{ render_field_with_errors(form.school_address.address1)}}
+{{ render_field_with_errors(form.school_address.address2)}}
+<div class="row">
+    <div class="column">
+        {{ render_field_with_errors(form.school_address.city)}}
+    </div>
+    <div class="column">
+        {{ render_field_with_errors(form.school_address.stateprov)}}
+    </div>
+    <div class="column">
+        {{ render_field_with_errors(form.school_address.postalcode)}}
+    </div>
+</div>
+{% else %}
+{{ render_field_with_errors(form.school_address.international_address)}}
+{% endif %}
+
+{% endif %}
+
+{{ render_field_with_errors(form.school_country)}}
+{% if transcript.school_address %}
+<button name="button" value="change-school-country" formnovalidate="">Change Country</button>
+{% else %}
+<button name="button" value="add-school-address">+ Add Address</button>
+{% endif %}
+{{ render_field_with_errors(form.school_email)}} {{ render_field_with_errors(form.school_phone)}}
+
+{% endblock %}

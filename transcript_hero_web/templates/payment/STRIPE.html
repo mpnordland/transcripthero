@@ -1,0 +1,112 @@
+<!-- <script
+    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+    data-key="{{ stripe_key }}"
+    data-label="Get Started"
+    data-amount="1600"
+    data-name="Transcript Hero"
+    data-description="Make as many transcripts as you like"
+    data-panel-label="Signup for {{ '{{amount}}' }} a year"
+    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+    data-locale="auto"
+    data-zip-code="true">
+</script> -->
+<style>
+    .card .card-content p.card-error {
+        font-size: 1.6rem;
+    }
+</style>
+
+<script src="https://js.stripe.com/v3/"></script>
+<label for="card-number">Card number</label>
+<div id="card-number" class="input empty"></div>
+<p id="card-number-error" class="card-error danger"></p>
+<div class="row">
+    <div class="column">
+        <label for="card-expiry">Expiration</label>
+        <div id="card-expiry" class="input"></div>
+        <p id="card-expiry-error" class="card-error danger"></p>
+    </div>
+    <div class="column">
+        <label for="card-cvc">CVC</label>
+        <div id="card-cvc" class="input"></div>
+        <p id="card-cvc-error" class="card-error danger"></p>
+    </div>
+</div>
+{{ payment_errors }}
+<input type="submit" class="main" value="{% if payment_context == 'create' %}Pay $16.00{% else %}Update{% endif %}">
+<script>
+
+    var stripe = Stripe("{{ stripe_key }}")
+    var elements = stripe.elements({
+        fonts: [
+            {
+                cssSrc: 'https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700',
+            },
+        ],
+    });
+
+    var elementStyles = {
+        base: {
+            fontFamily: "'Open Sans Condensed', sans-serif",
+            fontSize: '16px',
+        },
+        invalid: {
+            color: '#000',
+        }
+    }
+
+    var elementClasses = {
+        focus: 'focus',
+        empty: 'empty',
+        invalid: 'danger',
+    };
+
+
+    var cardNumber = elements.create('cardNumber', {
+        style: elementStyles,
+        classes: elementClasses,
+    });
+    cardNumber.mount('#card-number');
+
+    var cardExpiry = elements.create('cardExpiry', {
+        style: elementStyles,
+        classes: elementClasses,
+    });
+    cardExpiry.mount('#card-expiry');
+
+    var cardCvc = elements.create('cardCvc', {
+        style: elementStyles,
+        classes: elementClasses,
+    });
+    cardCvc.mount('#card-cvc');
+
+    function makeErrorHandler(error_element){
+        return function(event){
+            if (event.error) {
+                error_element.innerText = event.error.message;
+            } else {
+                error_element.innerText = "";
+            }
+        };
+    }
+    var card_error = document.querySelector('#card-number-error');
+    cardNumber.on('change', makeErrorHandler(card_error));
+    cardExpiry.on('change', makeErrorHandler(document.querySelector('#card-expiry-error')));
+    cardCvc.on('change', makeErrorHandler(document.querySelector('#card-cvc-error')));
+
+    var form = document.querySelector('form.payment');
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        stripe.createToken(cardNumber).then(function (result) {
+        if (result.error){
+                card_error.innerText = result.error.message;
+        } else {
+            var hiddenInput = document.querySelector('input[name="payment_token"]');
+            hiddenInput.setAttribute('value', result.token.id)
+            form.submit();
+        }
+        })
+
+    });
+</script>

@@ -1,0 +1,52 @@
+{% extends 'basic/transcript_base.html' %}
+{% block student_pip %}checked{% endblock %}
+{% block school_pip %}checked{% endblock %}
+{% block academics_pip %}full{% endblock %}
+{% block form %}
+{{ form.hidden_tag() }}
+<div class="form-inline">
+    <h4>Grading Scales <a href="{{ url_for('public.help') }}"><i class="far fa-question-circle"></i></a></h4>
+    <span>{{ render_field_with_errors(form.grading_scale) }}</span>
+    <span>{{ render_field_with_errors(form.ap_grading_scale) }}</span>
+</div>
+{% for year in form.years %}
+<details open="true">
+    <summary>Grade {{ loop.index0 + 9 }}</summary>
+    <div class="form-inline form-header">
+        <span>School Year</span>
+        <span>{{ render_field_with_errors_no_label(year.begin_year) }}</span>
+        <span>through</span>
+        <span>{{ render_field_with_errors_no_label(year.end_year) }}</span>
+    </div>
+    <div class="div-table">
+        {% if year.courses %}
+        <div class="header">
+            <span class="cell">Course Name</span>
+            <span class="cell">Subject (optional)</span>
+            <span class="cell">Course Type</span>
+            <span class="cell">Grade</span>
+            <span class="cell">Credits</span>
+            <span class="cell"></span>
+        </div>
+        {% endif %}
+        {% set outer_loop = loop %}
+        {% for course in year.courses %}
+        <span class="anchor-row" id="year-{{ outer_loop.index0 }}-course-{{ loop.index0 }}"></span>
+        <div class="course">
+            {{ render_div_table_field_with_errors(course.title) }}
+            {{ render_div_table_field_with_errors(course.category) }}
+            {{ render_div_table_field_with_errors(course.form.type) }}
+            {{ render_div_table_field_with_errors(course.grade, class_="short-input") }}
+            {{ render_div_table_field_with_errors(course.credits, class_="short-input")}}
+            <div class="cell">
+                <button class="button button-clear danger" name="button" value="delete-{{course.name}}"
+                    formnovalidate=""><i class="fas fa-times-circle"></i></button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <button name="button" class="button button-outline" value="add-course-year-{{ loop.index0 }}">+
+        Add Another Row</button>
+</details>
+{% endfor %}
+{% endblock %}

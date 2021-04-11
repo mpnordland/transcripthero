@@ -1,0 +1,285 @@
+<html>
+    <head>
+        <title>Transcript for {{transcript.student_name}}</title>
+        <style>
+            @page {
+                size: letter portrait;
+                margin: 0.5in;
+                font-family: Arial, Helvetica, sans-serif;
+                color: black;
+                font-size: 7.5pt;
+            }
+            html {
+                font-family: Arial, Helvetica, sans-serif;
+                font-size: 7.5pt;
+                font-weight: normal;
+                color: #000000;
+                background-color: transparent;
+                margin: 0;
+                padding: 0;
+                width: auto;
+                height: auto;
+                white-space: normal;
+                line-height: 1;
+                vertical-align: baseline;
+            }
+            b, strong {
+                font-weight: bold;
+            }
+            i, em {
+                font-style: italic;
+            }
+            u {
+                text-decoration: underline;
+            }
+            s, strike {
+                text-decoration: line-through;
+            }
+            a {
+                text-decoration: underline;
+                color: blue;
+            }
+            ins {
+                color: green;
+                text-decoration: underline;
+            }
+            del {
+                color: red;
+                text-decoration: line-through;
+            }
+            address, blockquote, body, center, dl, dir, fieldset, form,
+            h1, h2, hr, isindex, menu, noframes, noscript,
+            ol, p, pre, table, th, tr, td, ul, li, dd, dt {
+                display: block;
+            }
+
+            big {
+                font-size: 125%;
+            }
+            small {
+                font-size: 75%;
+            }
+            pre {
+                white-space: pre;
+            }
+
+            table {
+                vertical-align: top;
+            }
+
+            h1 {
+                font-size: 16pt;
+                text-align: center;
+                margin-bottom: 20px;
+            }
+
+            h2 {
+                font-size: 10pt;
+                font-weight: bold;
+                padding-top: 8px;
+                padding-left: 8px;
+                padding-right: 8px;
+                padding-bottom: 4.5px;
+                line-height: 1;
+                background-color: #e6e6e6;
+                border-top: 1px solid black;
+                border-bottom: 1px solid #999;
+            }
+
+            #academic {
+                margin-top: 16px;
+            }
+
+            #school {
+                text-align: right;
+            }
+
+            .information,
+            .information address {
+                line-height: 11.0pt;
+                font-size: 7.5pt;
+            }
+
+            .name {
+                font-size: 9pt;
+                font-weight: bold;
+                line-height: 11.0pt;
+            }
+
+            .subject-header {
+                font-size: 9pt;
+                padding-top: 4px;
+                padding-bottom: 3px;
+                line-height: 9pt;
+                border-bottom: 1px solid #ccc;
+            }
+
+            .column{
+                padding-top: 8px;
+                padding-left: 8px;
+                padding-right: 8px;
+                padding-bottom: 8px;
+            }
+            .column table{
+                padding-top: 0px;
+                padding-left: 0px;
+                padding-right: 0px;
+                padding-bottom: 2px;
+                font-size: 7.5pt;
+            }
+            .column th {
+                font-weight: bold;
+                padding-bottom: 3px;
+                padding-top: 2px;
+            }
+
+            .summary td{
+                padding-top: 4px;
+                padding-bottom: 4px;
+                border-bottom: 1px solid #ccc;
+            }
+            .summary .totals {
+                line-height: 1.2;
+            }
+            .affirmation {
+                font-style: italic;
+                padding-top: 12px;
+                padding-bottom: 12px;
+                border-bottom: 1px solid black;
+                margin-bottom: 40px;
+            }
+            .signature .top{
+                border-bottom: 1px solid black;
+                vertical-align: bottom;
+                font-size: 9pt;
+                padding-bottom: 3px;
+            }
+            .signature .bottom {
+                padding-top: 3px;
+            }
+            .signature .bottom .spacer {
+                border-top: 3px solid white;
+            }
+            .signature .end {
+                padding-left: 1px;
+            }
+            .signature img {
+                height: 40px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Official High School Transcript</h1>
+        <table>
+            <td class="information">
+                <h3 class="name">{{transcript.student_name}}</h3>
+                {% if transcript.student_address %}
+                <address>
+                    {% if transcript.student_address.country == 'United States' %}
+                        {{transcript.student_address.address1}}<br>
+                        {% if transcript.student_address.address2 %}{{transcript.student_address.address2}}<br>{% endif %}
+                        {{transcript.student_address.city}}, {{transcript.student_address.stateprov}} {{transcript.student_address.postalcode}}
+                    {% else %}
+                    <pre>{{transcript.student_address.international_address}}</pre> 
+                    {{transcript.student_address.country}} 
+                    {% endif %}
+                </address>
+                {% else %}
+                <br>
+                {% endif %}
+                <b>Date of Birth:</b> {% if transcript.student_birthday%}
+                {{transcript.student_birthday.strftime('%m/%d/%Y')}}
+                {% else %}--/--/--
+                {% endif %}<br>
+                <b>Parents/Guardians:</b> {{transcript.student_parents}}
+            </td>
+            <td id="school" class="information">
+                <h3 class="name">{{transcript.school_name or ""}}</h3>
+                {% if transcript.school_address %}
+                    <address>
+                    {% if transcript.school_address.country == 'United States' %}
+                        {{transcript.school_address.address1}}<br>
+                        {% if transcript.school_address.address2 %}{{transcript.school_address.address2}}<br>{% endif %}
+                        {{transcript.school_address.city}}, {{transcript.school_address.stateprov}} {{transcript.school_address.postalcode}}
+                    {% else %}
+                        <pre>{{transcript.school_address.international_address}}</pre>
+                        {{transcript.school_address.country}} 
+                    {% endif %}
+                    </address>
+                {% else %}
+                <br>
+                {% endif %}
+                {{transcript.school_phone  or ""}}<br>
+                {{transcript.school_email  or ""}}
+            </td>
+        </table>
+        <h2 id="academic">OFFICIAL ACADEMIC RECORD</h2>
+        <table class="subject-header">
+            <td><b>By Subject</b></td>
+            <td><b>By Subject</b></td>
+        </table>
+        {% set items = categories.items() | list %}
+        <table>
+            {% for item_list in items|slice(2) %}
+            {% set ns = namespace(GRADE="GRADE", CREDITS="CREDITS") %}
+            <td class="column">
+                <table>
+                {% for category, courses in item_list %}
+                    <tr>
+                        <th class="category">{{category.upper()}}</th>
+                        <th>{{ ns.GRADE }}</th>
+                        <th>{{ ns.CREDITS }}</th>
+                    </tr>
+                    {% set ns.GRADE = "" %}
+                    {% set ns.CREDITS = "" %}
+                    {% for course in course_filter(courses) %}
+                        <tr>
+                            <td>{{ course.title }}</td>
+                            <td>{{ course.grade.upper() }}</td>
+                            <td>{{ "%.2f" | format(course.credits or 0) }}</td>
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+
+                </table>
+            </td>
+            {% endfor %}
+        </table>
+        <table>
+        <h2>ACADEMIC SUMMARY</h2>
+        <table class="summary">
+            <td class="totals">
+                <b>Overall GPA:</b> {{ "%.2f" | format(grader.grade_transcript(transcript)) }}<br>
+                <b>Credits Earned:</b> {{ "%.2f" | format(grader.transcript_credits(transcript))}}<br>
+                <b>Graduation Date:</b> {% if transcript.student_graduation_date %}
+                {{transcript.student_graduation_date.strftime('%m/%d/%Y')}}
+                {% else %}--/--/--{% endif %}
+            </td>
+            <td>
+                {% for line in (transcript.notes or "").splitlines() %}
+                    <p>{{ line }}</p>
+                {% endfor %}
+            </td>
+        </table>
+        <p class="affirmation">
+            I do hereby self-certify and affirm that this is the official transcript and
+            record of {{transcript.student_name}} in the academic studies of
+            {{transcript.first_year}}-{{transcript.last_year}}.
+
+        </p>
+        
+        <table class="signature">
+            <tr class="top">
+                <td><img src="{{transcript.signature_image}}"></td>
+                <td width="2%" class="spacer"></td>
+                <td class="end">{% if transcript.signature_date %}{{transcript.signature_date.strftime('%m/%d/%Y')}}{% else %}--/--/--{% endif %}</td>
+            </tr>
+            <tr class="bottom">
+                <td>{{transcript.signature_title or ""}}</td>
+                <td width="2%" class="spacer"></td>
+                <td class="end">Date</td>
+            </tr>
+
+        </table>
+    </body>
+</html>

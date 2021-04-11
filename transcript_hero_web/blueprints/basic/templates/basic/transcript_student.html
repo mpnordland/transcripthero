@@ -1,0 +1,39 @@
+{% extends 'basic/transcript_base.html' %}
+{% block student_pip %}full{% endblock %}
+{% block form %}
+{{ render_field_with_errors(form.student_name)}}
+
+{% if transcript.student_address %}
+{% if transcript.student_address.country == 'United States' %}
+{{ render_field_with_errors(form.student_address.address1)}}
+{{ render_field_with_errors(form.student_address.address2)}}
+<div class="row">
+    <div class="column">
+        {{ render_field_with_errors(form.student_address.city)}}
+    </div>
+    <div class="column">
+        {{ render_field_with_errors(form.student_address.stateprov)}}
+    </div>
+    <div class="column">
+        {{ render_field_with_errors(form.student_address.postalcode)}}
+    </div>
+</div>
+{% else %}
+{{ render_field_with_errors(form.student_address.international_address)}}
+{% endif %}
+
+{% endif %}
+
+{{ render_field_with_errors(form.student_country)}}
+{% if transcript.student_address %}
+<button name="button" value="change-student-country" formnovalidate="">Change Country</button>
+{% else %}
+<button name="button" value="add-student-address">+ Add Address</button>
+{% endif %}
+
+{{ render_field_with_errors(form.student_birthday)}}
+{{render_field_with_errors(form.student_graduation_date)}}
+{{render_field_with_errors(form.student_parents)}}
+{% endblock %}
+
+{% block back_button %}{% endblock %}

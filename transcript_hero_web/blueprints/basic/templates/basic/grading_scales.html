@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% from "_macros.html" import render_field_with_errors, render_field %}
+{% block title %}Transcripts{% endblock %}
+
+{% block head %}
+{% if not config['NO_DEFAULT_CSS'] %}
+<link rel="stylesheet" href="{{ url_for('static', filename='account.css') }}">
+{% endif %}
+{% endblock %}
+{% block bodyattr %}class="account"{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="column">
+        <div class="tab-cards">
+            <div class="tabs">
+                <div class="tab">
+                    <a href="{{ url_for('basic.index') }}"><i class="fas fa-graduation-cap"></i>Transcripts</a>
+                </div>
+                <div class="tab active">
+                    <a href="{{ url_for('basic.grading_scales') }}"><i class="fas fa-award"></i>Grading Scales</a>
+                </div>
+                <div class="tab">
+                    <a href="{{ url_for('basic.account_settings') }}"><i class="fas fa-user-edit"></i>Account</a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-content">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>
+                                    <!--Dummy header to keep the line going-->
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for grading_scale in grading_scales %}
+                            <tr>
+                                <td><a href="{{ url_for('basic.grading_scale', grading_scale_id=grading_scale.id) }}">{{
+                                        grading_scale.name }}</a>
+                                </td>
+                                <td class="actions">
+                                    <a target="_blank"
+                                        href="{{ url_for('basic.grading_scale', grading_scale_id=grading_scale.id) }}"><i
+                                            class="fas fa-edit"></i></a>
+                                    <a target="_blank"
+                                        href="{{ url_for('basic.delete_grading_scale', grading_scale_id=grading_scale.id) }}"><i
+                                            class="fas fa-times-circle danger"></i></a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <a href="{{ url_for('basic.grading_scale') }}" class="button">+ New Grading Scale</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

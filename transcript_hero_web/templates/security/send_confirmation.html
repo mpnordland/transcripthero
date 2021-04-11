@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% from "_macros.html" import render_field_with_errors, render_field %}
+{% block title %}Resend Confirmation Email{% endblock %}
+
+{% block head %}
+{% if not config['NO_DEFAULT_CSS'] %}
+<link rel="stylesheet" href="{{ url_for('static', filename='account.css') }}">
+{% endif %}
+{% endblock %}
+{% block bodyattr%}class="security"{% endblock %}
+
+{% block content %}
+<div class="row sign-in">
+    <div class="column">
+        <div class="card">
+            <div class="card-content">
+                <h3>Resend Confirmation Email</h3>
+                <form method="POST" action="{{url_for('security.send_confirmation')}}">
+                    {{ send_confirmation_form.hidden_tag() }}
+                    {{ render_field_with_errors(send_confirmation_form.email) }}
+                    {{ render_field(send_confirmation_form.submit, class="main") }}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

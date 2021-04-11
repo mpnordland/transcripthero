@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% from "_macros.html" import render_field_with_errors, render_field %}
+{% block title %}Transcripts{% endblock %}
+
+{% block head %}
+{% if not config['NO_DEFAULT_CSS'] %}
+<link rel="stylesheet" href="{{ url_for('static', filename='account.css') }}">
+{% endif %}
+{% endblock %}
+
+{% block bodyattr %}class="account"{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="column">
+        <div class="tab-cards">
+            <div class="tabs">
+                <div class="tab active">
+                    <a href="{{ url_for('basic.index') }}"><i class="fas fa-graduation-cap"></i>Transcripts</a>
+                </div>
+                <div class="tab">
+                    <a href="{{ url_for('basic.grading_scales') }}"><i class="fas fa-award"></i>Grading Scales</a>
+                </div>
+                <div class="tab">
+                    <a href="{{ url_for('basic.account_settings') }}"><i class="fas fa-user-edit"></i>Account</a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-content">
+                    <strong>Search</strong>
+                    <form class="form-inline transcript-search" method="POST" action="{{ url_for('basic.index') }}">
+                        {{ search_form.hidden_tag() }}
+                        <span>{{ render_field_with_errors(search_form.name) }}</span>
+                        <span>
+                            {{ render_field_with_errors(search_form.year_start, class_='short-input') }}
+                            {{ render_field_with_errors(search_form.year_end, class_='short-input') }}
+                        </span>
+                        <span>
+                            <a href="{{ url_for('basic.index') }}" class="button button-outline">Reset</a>
+                            <input type="submit" value="Search">
+                        </span>
+                    </form>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Years</th>
+                                <th>
+                                    <!--Dummy header to keep the line going-->
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for transcript in transcripts %}
+                            <tr>
+                                <td><a href="{{ url_for('basic.transcript', transcript_id=transcript.id) }}">{{
+                                        transcript.student_name }} </a></td>
+                                <td>{{ transcript.first_year }}-{{ transcript.last_year }}</td>
+                                <td class="actions">
+                                    <a target="_blank"
+                                        href="{{ url_for('basic.transcript_settings', transcript_id=transcript.id) }}"><i
+                                            class="fas fa-print"></i></a>
+                                    <a href="{{ url_for('basic.transcript', transcript_id=transcript.id) }}"><i
+                                            class="fas fa-edit"></i></a>
+                                    <a href="{{ url_for('basic.delete_transcript', transcript_id=transcript.id) }}"><i
+                                            class="fas fa-times-circle danger"></i></a>
+                                </td>
+                            </tr>
+                            {% else %}
+                            <tr class="first-run">
+                                <td>Add your first student</td>
+                                <td>&mdash;</td>
+                                <td class="actions">
+                                    <i class="fas fa-print"></i>
+                                    <i class="fas fa-edit"></i>
+                                    <i class="fas fa-times-circle danger"></i></a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% if can_add_transcript %}
+                    <a href="{{ url_for('basic.transcript') }}" class="button">+ Create Transcript</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

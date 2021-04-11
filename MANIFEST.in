@@ -1,0 +1,3 @@
+recursive-include transcript_hero_web/templates *
+recursive-include transcript_hero_web/static *
+recursive-include transcript_hero_web/blueprints/basic/templates *

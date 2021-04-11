@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Internal Server Error{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="column error-page">
+        <h1>We've encountered an error. Sorry about that.</h1>
+        <p>
+            This incident has been logged and we will do our very best to fix it.
+        </p>
+        <p>{{ config['PROBLEM_MESSAGE'] | safe }}</p>
+    </div>
+</div>
+{% endblock %}

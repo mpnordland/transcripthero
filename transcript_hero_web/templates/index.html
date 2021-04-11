@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Transcripts made easy{% endblock %}
+{% block bodyattr%}class="index"{% endblock %}
+{% block header %}
+<li class="navigation-item">
+    <a class="navigation-link button" href="{{ url_for('security.login') }}">LOGIN</a>
+</li>
+{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="column">
+        <div class="hero">
+            <h1 class="hero-first">Feeling Lost?</h1>
+            <h2 class="hero-second">Let us do your transcripts</h2>
+            {% if config["SECURITY_REGISTERABLE"] %}
+            <a class="button" href="{{ url_for('security.register') }}">GET STARTED</a>
+            {% endif %}
+            {% if config['HOME_LEARN_MORE_LINK'] %}
+            <a class="button button-outline" href="{{ config['HOME_LEARN_MORE_LINK'] }}">Learn More</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block footer %}
+{{ config['HOME_BRAND_PROMISE'] | safe }}
+{% endblock %}

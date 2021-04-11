@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% from "_macros.html" import render_field_with_errors, render_field, render_radiofield_with_errors %}
+{% block title %}Account Settings{% endblock %}
+
+{% block head %}
+{% if not config['NO_DEFAULT_CSS'] %}
+<link rel="stylesheet" href="{{ url_for('static', filename='account.css') }}">
+{% endif %}
+{% endblock %}
+{% block bodyattr %}class="account"{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="column">
+        <div class="tab-cards">
+            <div class="tabs">
+                <div class="tab">
+                    <a href="{{ url_for('basic.index') }}"><i class="fas fa-graduation-cap"></i>Transcripts</a>
+                </div>
+                <div class="tab">
+                    <a href="{{ url_for('basic.grading_scales') }}"><i class="fas fa-award"></i>Grading Scales</a>
+                </div>
+                <div class="tab active">
+                    <a href="{{ url_for('basic.account_settings') }}"><i class="fas fa-user-edit"></i>Account</a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-content settings">
+                    <form method="POST" action="{{ url_for('basic.account_settings') }}">
+                        {{ settings_form.hidden_tag() }}
+                        <div class="row">
+                            <fieldset class="column">
+                                <legend>Account Information</legend>
+                                <div class="account-box">
+                                    {{ render_field_with_errors(settings_form.name) }}
+                                    {{ render_field_with_errors(settings_form.email) }}
+                                    <input class="button" type="submit" value="Save">
+                                    <a href="{{ url_for('security.change_password') }}">Change Password</a>
+                                </div>
+                            </fieldset>
+                            <fieldset class="column">
+                                <legend>Settings</legend>
+                                <div class="account-box">
+                                    <label>Delete Account</label>
+                                    <p class="description danger">
+                                        WARNING: This action cannot be undone.<br>
+                                        Deletes all transcripts and other account data.
+                                    </p>
+                                    <a class="button danger" href="{{url_for('basic.delete_account')}}">Delete</a>
+                                </div>
+                            </fieldset>
+                        </div>
+                        {% if subscription %}
+                        <div class="row">
+                            <fieldset class="column column-50">
+                                <legend>Subscription</legend>
+                                <div class="account-box">
+                                    {% if subscription.expiration %}
+                                    <p>Your subscription will expire on:
+                                        <strong>{{subscription.expiration.strftime("%B %d, %Y")}}</strong>
+                                    </p>
+                                    {% endif %}
+                                    <table>
+                                        {% for pm in payment_methods %}
+                                        <tr>
+                                            <td><i class="fab fa-cc-{{pm.kind|lower}} fa-2x"></i></td>
+                                            <td>{{pm.number}}</td>
+                                            {% if pm.expired %}
+                                            <td><span class="badge danger">Expired</span></td>
+                                            {% else %}
+                                            <td><span class="badge success">Active</span></td>
+                                            {% endif %}
+                                        </tr>
+                                        {% endfor %}
+                                    </table>
+                                    <a href="{{ url_for('basic.payment_information') }}" class="button">
+                                        {{ payment_update_label or "Update Payment Information" }}</a>
+                                    {% if can_cancel %}
+                                    <a href="{{ url_for('basic.cancel_subscription') }}"
+                                        class="button button-outline">Cancel
+                                        Subscription</a>
+                                    {% endif %}
+                                    {% if subscription_help %}
+                                    <p>{{ subscription_help | safe }}</p>
+                                    {% endif %}
+                                </div>
+                            </fieldset>
+                        </div>
+                        {% endif %}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

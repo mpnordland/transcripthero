@@ -1,0 +1,52 @@
+{% macro render_field_errors(field) %}
+    {% if field.errors %}
+      <ul class="field-errors">
+      {% for error in field.errors %}
+        <li class="danger">{{ error }}</li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+{% endmacro %}
+{% macro render_field(field) %}
+  {% if field.errors %}
+      {% set css_class= "danger " + kwargs.pop('class', '')  %}
+      {{ field(class=css_class, **kwargs)|safe }}
+  {% else %}
+      {{ field(**kwargs)|safe }}
+  {% endif %}
+{% endmacro %}
+
+{% macro render_field_with_errors(field) %}
+    {{ field.label }} {{ render_field(field, **kwargs) }}
+    {{ render_field_errors(field) }}
+{% endmacro %}
+
+{% macro render_field_with_errors_no_label(field) %}
+    {{ render_field(field) }}
+    {{ render_field_errors(field) }}
+{% endmacro %}
+
+{% macro render_table_field_with_errors(field) %}
+    <td>{{ render_field(field) }}
+    {{ render_field_errors(field) }}
+    </td>
+{% endmacro %}
+
+{% macro render_radiofield_with_errors(field) %}
+  {{ field.label }}
+  <div class="radio-buttons">
+    {% for subfield in field %}
+      {{ render_field(subfield) }}
+      {{ subfield.label }}
+    {% endfor %}
+  </div>
+  {{ render_field_errors(field) }}
+{% endmacro %}
+
+{% macro render_div_table_field_with_errors(field) %}
+  <div class="cell">
+    {{ field.label }}
+    {{ render_field(field, **kwargs) }}
+    {{ render_field_errors(field) }}
+  </div>
+{% endmacro %}

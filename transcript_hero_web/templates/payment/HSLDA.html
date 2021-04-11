@@ -1,0 +1,90 @@
+
+<span id="errorMsg"></span>
+{{ payment_errors }}
+<input id="submit" type="submit" class="main" value="{% if payment_context == 'create' %}Register{% else %}Update{% endif %}">
+
+<script>
+
+    // call out to endpoint to verify coupon
+    // Display message and alert that they need to 
+    // purchase access
+
+    function verifyCoupon(coupon) {
+        var apiUrl = "/webhooks/hslda?coupon="+coupon;
+
+        var promise = new Promise(
+            function(resolve, reject){
+                var request = new XMLHttpRequest();
+                request.onreadystatechange = function(){
+                    if (request.readyState === XMLHttpRequest.DONE){
+                        if (request.status === 200){
+                            resolve();
+                        } else {
+                            reject();
+                        }
+                    }
+                }
+                request.open("GET", apiUrl);
+                request.send();
+            }
+        );
+        return promise;
+    }
+
+    var createCookie = function(name, value, days) {
+        var expires;
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toGMTString();
+        }
+        else {
+            expires = "";
+        }
+        document.cookie = name + "=" + value + expires + "; path=/";
+    }
+
+    function getCookie(c_name) {
+        if (document.cookie.length > 0) {
+            c_start = document.cookie.indexOf(c_name + "=");
+            if (c_start != -1) {
+                c_start = c_start + c_name.length + 1;
+                c_end = document.cookie.indexOf(";", c_start);
+                if (c_end == -1) {
+                    c_end = document.cookie.length;
+                }
+                return unescape(document.cookie.substring(c_start, c_end));
+            }
+        }
+        return "";
+    }
+
+    var urlParams = new URLSearchParams(window.location.search);
+    var couponCode = urlParams.get('coupon');
+    var cookiename = "storecoupon";
+    if (couponCode === null){
+        cookie = getCookie(cookiename)
+        console.log(cookie);
+        couponCode = cookie;
+    }
+
+    var submit = document.getElementById("submit");
+    var errorMsg =document.getElementById("errorMsg");
+    var form = document.querySelector('form.payment');
+    var label = document.createElement('label');
+    var payment_token = document.querySelector('input[name="payment_token"]');
+    var promise = verifyCoupon(couponCode);
+    promise.then(function(){
+        submit.disabled = false;
+        payment_token.value = couponCode;
+        label.appendChild(document.createTextNode("Activation Code: "+couponCode));
+        form.insertBefore(label , payment_token);
+        createCookie(cookiename, couponCode, 1);
+    }, function(){
+        form.insertBefore(payment_token, document.getElementById('errorMsg'));
+        label.appendChild(document.createTextNode("Activation Code"));
+        form.insertBefore(label , payment_token);
+        payment_token.type = 'text';
+    })
+
+</script>

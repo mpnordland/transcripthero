@@ -1,0 +1,481 @@
+html, body, main.container {
+    height: 100%;
+}
+
+main.container>.row {
+    min-height: 100%;
+}
+
+main.container>.row>.column {
+    display: flex;
+    flex-direction: column;
+}
+
+.sign-in .card {
+    flex-grow: 1;
+}
+
+main.container .row .column .tab-cards {
+    min-height: 100%;
+}
+
+.forgot-password {
+    font-size: 1.2rem;
+}
+
+#password {
+    margin-bottom: 1rem;
+}
+
+input[type="submit"].main, button.main {
+    display: block;
+    margin: 3rem auto 0 auto;
+    padding: 1.5rem 5.5rem;
+    height: auto;
+}
+
+.progress-images a:hover {
+    color: #383f42;
+}
+
+.settings fieldset>legend {
+    font-weight: bold;
+}
+
+.settings .row {
+    padding-bottom: 3rem;
+}
+
+.account-box {
+    background-color: #f0f0f0;
+    padding: 1rem 2rem;
+    padding-top: 2rem;
+    min-height: 25.1rem;
+    min-width: 29.8rem;
+}
+
+.account-box>a:not(.button) {
+    font-weight: bold;
+    margin-left: 1.5rem;
+}
+
+.account-box table {
+    background-color: white;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.account-box table tr:last-child td {
+    border-bottom: none;
+}
+
+.first-run .danger {
+    color: rgb(96, 108, 118);
+}
+
+.form-inline input[type="submit"], .form-inline .button {
+    display: inline-block;
+    margin-left: 1rem;
+    padding: 1.5rem 2rem;
+}
+
+.tab-cards {
+    display: flex;
+    flex-direction: column;
+}
+
+.tab-cards .tabs {
+    display: flex;
+}
+
+.tabs .tab {
+    background-color: #eceff0;
+    padding: 2rem 0rem;
+    z-index: 0;
+    text-align: center;
+    flex-grow: 1;
+    flex-shrink: 0;
+}
+
+.tabs .tab a {
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: normal;
+}
+
+.tabs .tab a i.fas {
+    display: block;
+    font-size: 3rem;
+}
+
+.tabs .tab.active {
+    z-index: 1;
+    background-color: white;
+    -webkit-box-shadow: 0px 4px 0px 0px #ffffff, 0px 0px 3px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow: 0px 4px 0px 0px #ffffff, 0px 0px 3px 0px rgba(50, 50, 50, 0.75);
+    box-shadow: 0px 4px 0px 0px #ffffff, 0px 0px 3px 0px rgba(50, 50, 50, 0.75);
+}
+
+.tab-cards .card {
+    flex-grow: 1;
+    border-bottom-left-radius: 0rem;
+    border-bottom-right-radius: 0rem;
+}
+
+.inline-control {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.inline-control .button {
+    margin: 0;
+}
+
+.progress {
+    display: flex;
+    background: rgb(255, 255, 255);
+    justify-content: space-between;
+    margin: 1rem auto;
+    position: relative;
+}
+
+.progress::before {
+    content: "";
+    background: black;
+    height: .2rem;
+    position: absolute;
+    bottom: .9rem;
+    left: 2rem;
+    right: 3rem;
+}
+
+.progress-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    z-index: 2;
+    color: #383f42;
+}
+
+.progress-title {
+    font-size: 1.1rem;
+    margin-top: 0.4rem;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.progress-pip {
+    margin-top: 2rem;
+    width: 2rem;
+    height: 2rem;
+    background-color: white;
+    border-radius: 50px;
+    border: 2px solid black;
+    display: block;
+}
+
+.progress-pip.full {
+    background-color: rgba(248, 191, 2, 1);
+}
+
+.progress-pip.checked {
+    background-color: white;
+    border-color: transparent;
+}
+
+.progress-pip.checked::after {
+    content: '\f058';
+    position: relative;
+    top: -3px;
+    left: -2.6px;
+    font-family: "Font Awesome 5 Free";
+    color: rgba(248, 191, 2, 1);
+    font-size: 1.33333em;
+    line-height: .75em;
+}
+
+table .actions {
+    text-align: right;
+    padding-right: 2rem;
+}
+
+table .actions i {
+    padding-left: 2rem;
+}
+
+table .actions i:first-child {
+    padding-left: unset;
+}
+
+.buttons {
+    padding: 1.5rem 2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.buttons button {
+    margin: 0;
+}
+
+.transcript details {
+    margin-top: 2rem;
+}
+
+.grading-scale .buttons {
+    justify-content: flex-end;
+}
+
+.grading-scale .buttons button {
+    margin-left: 1rem;
+}
+
+body.editing {
+    background-image: url("/static/img/cole-keister-291568-unsplash.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+body.security {
+    background-image: url("/static/img/david-pennington-562462-unsplash.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+body.account {
+    background-image: url("/static/img/rawpixel-com-577494-unsplash.jpg");
+    background-size: cover;
+}
+
+.grade-points {
+    font-size: 4rem;
+    color: #383f42;
+}
+
+.grading-scale h3 {
+    font-size: 1.7rem;
+    font-weight: bold;
+    padding: 0.95rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0;
+    letter-spacing: .05rem;
+}
+
+.grading-scale .header .cell {
+    font-size: 1.6rem;
+    padding: 0.9rem 0 1.2rem;
+    font-weight: bold;
+}
+
+.register .plan-information {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.register .plan-information>h3 {
+    font-size: 3.6rem;
+}
+
+.register .plan-information>ul {
+    list-style-position: outside;
+    width: 16rem;
+    margin: 0 auto;
+}
+
+.register .plan-information>ul li {
+    font-size: 2rem;
+    padding-left: 2rem;
+}
+
+.register form {
+    margin-top: 3rem;
+}
+
+.card .register form .description {
+    margin: 1rem auto;
+    width: 20rem;
+    align-self: center;
+}
+
+.course, .increment {
+    border-bottom: 0.1rem solid #a1a1a1;
+}
+
+.increment>.cell {
+    padding: 1rem 0.5rem;
+}
+
+.increment>.cell.equals {
+    display: none;
+}
+
+.course>.cell {
+    padding: 0.5rem;
+    width: 100%;
+}
+
+.header {
+    display: none;
+}
+
+.div-table {
+    margin-bottom: 2rem;
+}
+
+@media (max-width: 45.0rem) {
+    .container {
+        padding: 0;
+    }
+    .course>.cell .button>.fa-times-circle::before, .increment>.cell .button>.fa-times-circle::before {
+        content: "Delete";
+        font-family: 'Roboto', Verdana, Geneva, sans-serif;
+        font-weight: normal;
+    }
+    .course:nth-of-type(even), .increment:nth-child(even) {
+        border-left: 0.5rem solid #fbb723;
+    }
+    .course:nth-of-type(odd), .increment:nth-child(odd) {
+        border-left: 0.5rem solid black;
+    }
+}
+
+@media (min-width: 40.0rem) {
+    .tab-cards {
+        padding-top: 2rem;
+    }
+    .tabs .tab {
+        padding: 1rem 3rem 1rem 3rem;
+        flex-grow: 0;
+        flex-shrink: 1;
+    }
+    .tabs .tab a {
+        font-size: inherit;
+    }
+    .tabs .tab a i.fas {
+        padding-right: 1rem;
+        display: initial;
+        font-size: inherit;
+    }
+    main.container .row.register, main.container>.row.transcript, main.container>.row.grading-scale, main.container .row.sign-in {
+        justify-content: center;
+    }
+    main.container>.row.grading-scale, main.container>.row.transcript {
+        padding-bottom: 1.5rem;
+    }
+    main.container>.row.grading-scale>.column {
+        flex: 0 0 100rem;
+        margin-top: 3rem;
+    }
+    main.container>.row.transcript>.column {
+        flex: 0 0 100rem;
+        justify-content: space-around;
+    }
+    main.container .row.register>.column {
+        justify-content: space-around;
+    }
+    main.container .row.sign-in>.column {
+        justify-content: space-around;
+        flex: 0 0 35rem;
+        padding: 0;
+    }
+    .transcript .card, .sign-in .card {
+        flex-grow: 0;
+    }
+    .grading-scale .card-content, .transcript .card-content {
+        padding-left: 10rem;
+        padding-right: 10rem;
+        padding-bottom: 4rem;
+    }
+    .transcript details summary {
+        color: black;
+        font-size: 1.7rem;
+        font-weight: bold;
+    }
+    .progress {
+        width: 40rem;
+        margin: 0 auto;
+    }
+    .tab-cards .tabs {
+        margin-left: 1rem;
+    }
+    .tab-cards .card-content {
+        padding: 5rem;
+    }
+    .settings fieldset.column:first-child {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+    .settings fieldset.column:last-child {
+        padding-right: 3rem;
+    }
+    .div-table {
+        display: table;
+        width: 100%;
+        border-bottom: 1px solid black;
+    }
+    .header {
+        display: table-row;
+    }
+    .header .cell {
+        display: table-cell;
+        font-weight: bold;
+        border-bottom: 1px solid black;
+        padding: 1.2rem 1.5rem;
+    }
+    .course, .anchor-row, .increment {
+        display: table-row;
+    }
+    .course:nth-child(3)>.cell {
+        padding-top: 1rem;
+    }
+    .course:last-child>.cell {
+        padding-bottom: 1rem;
+    }
+    .anchor-row {
+        position: absolute;
+        margin-top: -80px;
+    }
+    .course>.cell, .increment>.cell {
+        display: table-cell;
+    }
+    .course>.cell {
+        padding: 1rem;
+    }
+    .header>.cell:first-child, .course>.cell:first-child, .increment>.cell:first-child {
+        padding-left: 0;
+    }
+    .header>.cell:last-child, .course>span:last-child, .increment>.cell:last-child {
+        padding-right: 0;
+    }
+    .course .cell>label, .increment .cell>label {
+        display: none;
+    }
+    .course .cell>button, .increment .cell>button {
+        padding-top: 0;
+        padding-bottom: 0;
+        margin: 0;
+    }
+    .course .cell>select, .course .cell>input, .increment .cell>input {
+        margin: 0;
+    }
+    .increment>.cell.equals {
+        text-align: center;
+        font-size: 2rem;
+        vertical-align: middle;
+        width: 2rem;
+        display: table-cell;
+    }
+    .increment>.cell.actions {
+        text-align: center;
+    }
+}
+
+@media (min-width: 50.0rem) {
+    .course>.cell select {
+        width: 12rem;
+    }
+}

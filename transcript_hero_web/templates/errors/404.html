@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block title %}Page Not Found{% endblock %}
+
+
+{% block content %}
+<style>
+    .arrow-up {
+        width: 0;
+        height: 0;
+        border-left: .5rem solid transparent;
+        border-right: .5rem solid transparent;
+        border-bottom: 4rem solid #333;
+    }
+
+    .arrow-down {
+        width: 0;
+        height: 0;
+        border-left: .5rem solid transparent;
+        border-right: .5rem solid transparent;
+        border-top: 4rem solid #fa3b2c;
+    }
+
+    .needle {
+        width: 1rem;
+        height: 8rem;
+        animation: needle-spin 5s infinite;
+    }
+
+    .compass {
+        width: 10rem;
+        height: 10rem;
+        border-radius: 50%;
+        background-color: #eaeaea;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0 3rem;
+    }
+
+    .not-found-message {
+        padding: 2rem;
+        max-width: 45rem;
+        font-size: 2rem;
+    }
+
+    @keyframes needle-spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        20% {
+            transform: rotate(60deg);
+        }
+
+        60% {
+            transform: rotate(-100deg);
+        }
+
+        80% {
+            transform: rotate(190deg);
+        }
+
+        100% {
+            transform: rotate(0deg);
+        }
+    }
+</style>
+<div class="row">
+    <div class="column error-page">
+        <h1>The page you are looking for could not be found</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="compass">
+        <div class="needle">
+            <div class="arrow-up"></div>
+            <div class="arrow-down"></div>
+        </div>
+    </div>
+    <div class="not-found-message">
+        <p>
+            That page isn't here and our compass is pointing in all the wrong directions.
+            Perhaps you'd like to <a href="/">return home?</a>
+        </p>
+        <p>{{ config['PROBLEM_MESSAGE'] | safe }}</p>
+    </div>
+</div>
+{% endblock %}

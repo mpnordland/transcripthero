@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% from "_macros.html" import render_field_with_errors, render_field_with_errors_no_label,
+render_div_table_field_with_errors,
+render_field %}
+{% block title %}{% if transcript.student_name %}Edit {{transcript.student_name}}'s{% else %}New{%
+endif %} transcript{% endblock %}
+{% block head %}
+{% if not config['NO_DEFAULT_CSS'] %}
+<link rel="stylesheet" href="{{ url_for('static', filename='account.css') }}">
+{% endif %}
+{% endblock %}
+{% block bodyattr %}class="editing"{% endblock %}
+{% block content %}
+<section class="row transcript">
+    <div class="column">
+        <div class="card">
+            <div class="card-content">
+                <div class="progress">
+                    <a class="progress-step"
+                        href="{{url_for('basic.transcript_student', transcript_id=transcript.id)}}">
+                        <i class="fas fa-user-graduate fa-2x"></i>
+                        <span class="progress-title">Student</span>
+                        <span class="progress-pip {% block student_pip %}{% endblock %}"></span>
+                    </a>
+                    <a class="progress-step" href="{{url_for('basic.transcript_school', transcript_id=transcript.id)}}">
+                        <i class="fas fa-school fa-2x"></i>
+                        <span class="progress-title">School</span>
+                        <span class="progress-pip {% block school_pip %}{% endblock %}"></span>
+                    </a>
+                    <a class="progress-step"
+                        href="{{url_for('basic.transcript_academics', transcript_id=transcript.id)}}">
+                        <i class="fas fa-chalkboard-teacher fa-2x"></i>
+                        <span class="progress-title">Academics</span>
+                        <span class="progress-pip {% block academics_pip %}{% endblock %}"></span>
+                    </a>
+                    <a class="progress-step"
+                        href="{{url_for('basic.transcript_signature', transcript_id=transcript.id)}}">
+                        <i class="fas fa-signature fa-2x"></i>
+                        <span class="progress-title">Signature</span>
+                        <span class="progress-pip {% block signature_pip %}{% endblock %}"></span>
+                    </a>
+                </div>
+                <h2>{{ form.title }}</h2>
+                <form id="transcript_form" method="POST" enctype="multipart/form-data">
+                    {{ form.hidden_tag() }}
+                    {% block form %}
+                    {% endblock %}
+                </form>
+            </div>
+            <div class="buttons">
+                <span>{% block back_button %}<button form="transcript_form" class="button button-outline" name="button"
+                        value="back" formnovalidate="">Back</button>{% endblock %}</span>
+                <span>
+                    <button form="transcript_form" class="button button-outline" name="button" value="finish">Save &
+                        Quit</button>
+                </span>
+
+                <span>
+                    {% block next_button %}<button form="transcript_form" class="button" name="button"
+                        value="next">Next</button>{% endblock %}
+                </span>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

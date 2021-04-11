@@ -1,0 +1,24 @@
+version: '3.7'
+services:
+  web:
+    environment:
+      - "TRANSCRIPT_HERO_SETTINGS=/home/transcripthero/data/settings.cfg"
+    image: transcript_hero
+    ports:
+      - "5000:5000"
+    depends_on:
+      - rabbitmq
+    volumes:
+       - ./config:/home/transcripthero/data
+  task:
+    environment:
+      - "TRANSCRIPT_HERO_SETTINGS=/home/transcripthero/data/settings.cfg"
+    image: transcript_hero
+    entrypoint: ./boot-task.sh
+    depends_on:
+      - rabbitmq
+    volumes:
+       - ./config:/home/transcripthero/data
+
+  rabbitmq:
+    image: "rabbitmq:latest"

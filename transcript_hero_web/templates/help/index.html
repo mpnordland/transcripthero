@@ -1,0 +1,245 @@
+{% extends 'base.html' %}
+
+{% block title %}User Guide{% endblock %}
+
+{% block bodyattr %}class="help"{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="column">
+        <div class="card">
+            <div class="card-content">
+                <h1>User Guide</h1>
+                <h2>Transcripts</h2>
+                <details>
+                    <summary>Viewing your transcripts</summary>
+                    <p>
+                        Transcripts can be found in the transcripts tab in your <a
+                            href="{{url_for('basic.index')}}">dashboard</a>.
+                        There is a filterable list of all of your transcripts. You can search
+                        for a transcript by the name of the student or by the years of attendence.
+                        Just enter your criteria and click the <strong>Search</strong> button. <br>
+                        To view all of your transcripts again, click the <strong>Reset</strong> button.
+                    </p>
+                </details>
+                <details>
+                    <summary>Creating a new transcript</summary>
+                    <p>
+                        Transcripts are created from the list of transcripts in
+                        your <a href="{{url_for('basic.index')}}">dashboard</a>.
+                        Click the <strong>+ Create Transcript</strong> button to add
+                        a new transcript.
+                    </p>
+                    <p>
+                        The new transcript form will open and you can start filling in
+                        your student's information.
+                    </p>
+                    <p>
+                        The transcript form has four pages: <i class="fas fa-user-graduate"></i> Student,
+                        <i class="fas fa-school"></i> School, <i class="fas fa-chalkboard-teacher"></i> Academics, and
+                        <i class="fas fa-signature"></i> Signature.
+                    </p>
+                    <p>
+                        The <i class="fas fa-user-graduate"></i> Student and <i class="fas fa-school"></i> School
+                        pages are where you enter the contact information for your student and your school.
+                        To enter your address, first select your country from the dropdown and then click
+                        <strong>+ Add Address</strong>. For US addresses, a standard address form will be shown.
+                        For addresses outside the US, a textbox will be shown. You should enter your address like
+                        it would appear on an envelope.
+
+                    </p>
+                    <p>
+                        The <i class="fas fa-chalkboard-teacher"></i> Academics page is where you enter the courses your
+                        student completed during each year of enrollment and the grades and credits that were awarded
+                        for each
+                        course. This is the most complex step, so we'll explain how it works in more detail.
+                    </p>
+
+                    <p>
+                        The <i class="fas fa-chalkboard-teacher"></i> Academics page is broken down into four years.
+                        The years are arranged in chronological order from Freshman to Senior. To add a course to a
+                        school
+                        year, click the <strong>+ Add Another Row</strong> button under the year that course was taken.
+                    </p>
+
+                    <p>
+                        Each course has a title, category, type, grade, and credits. The title is the name of the
+                        course.
+                        The category is the category or subject the course falls under, e.g. English or Math.
+                        The type of the course marks whether it was an honors or AP course.
+                        The grade field holds the letter grade the student received for the course (see below on how
+                        letter grades become grade point averages).
+                        The credits fields indicates how many highschool credits the course is worth.
+                    </p>
+                    <p>
+                        <strong>
+                            Most US states and universities have requirements
+                            on how many credits a highschool course is worth.
+                        </strong><br>
+                        With the exception of Indiana, Idaho, New Jersey, and
+                        California, a highscool course which lasts one year or
+                        120 hours of instruction is generally worth one credit.
+                    </p>
+                    <p>
+                        The <i class="fas fa-signature"></i> Signature page allows you to enter information about who
+                        certifies that the information in the transcript is accurate. You may enter their title, the
+                        date the transcript was signed and optionally upload an image of their signature. There is also
+                        a notes field for any information that doesn't fit into the rest of the transcript.
+                    </p>
+
+                </details>
+                <details>
+                    <summary>Editing a transcript</summary>
+                    <p>
+                        You can open a transcript for editing by clicking the name of the
+                        student in the list of transcripts or by clicking the <i class="fas fa-edit"></i>(edit)
+                        icon in its row.
+                    </p>
+                    <p>
+                        The transcript edit form will open and you can update the information in the transcript.<br>
+                        If you need to get to a particular page quickly, click the icon for that page at the top of the
+                        form.
+                    </p>
+                    <p>
+                        To change the country for your address, select the correct country from the dropdown and then
+                        click
+                        <strong>Change Country</strong>
+                    </p>
+                </details>
+                <details>
+                    <summary>Deleting a transcript</summary>
+                    <p>
+                        You can delete a transcript by clicking the <i class="fas fa-times-circle danger"></i> icon
+                        to the left of the transcript you would like to delete. <br>
+
+                        Because deleting a transcript could cause you to lose a lot of work, you will need to
+                        confirm that you want to delete the transcript.<br>
+                        <span class="danger">Once a transcript is deleted there is no guarantee it can be
+                            restored.</span>
+                    </p>
+                </details>
+                <h2>Grading</h2>
+                <details>
+                    <summary>Default Grading Scale</summary>
+                    <p>
+                        The default grading scale uses a four point system with letter grades from A+ to F.
+                        Honors and AP courses have their grades weighted. Honors courses can receive a maximum
+                        of 4.5 points and AP courses can receive a maximum of 5 points. Half credit courses can
+                        receive a maximum of 2 points.
+                    </p>
+                </details>
+                <details>
+                    <summary>Custom Grading Scales</summary>
+                    <p>
+                        If you use a grading system that is not based on a 4 point system or
+                        A through F letter grades, you can use a custom grading scale. Grading scales
+                        can be created from the <a href="{{url_for('basic.grading_scales')}}">Grading Scales</a>
+                        tab in your <a href="{{url_for('basic.index')}}">dashboard</a>. Simply click the <strong>+ New
+                            Grading Scale</strong> button.
+                    </p>
+                    <p>
+                        Each grading scale has a name, and a set of grade increments.
+                        Grade increments are added by clicking the <strong>+ Add Grade Increment</strong> button
+                        when editing the grading scale. <br>
+                        <strong>You must name and save your grading scale before you can add an increment</strong>
+                    </p>
+                    <p>
+                        Each grade increment has a letter grade and a GPA value. The letter grade is what you will put
+                        for the grade when
+                        entering courses on the transcript, and the GPA value is what will be used to calculate your
+                        student's GPA.
+                    </p>
+                    <p>
+                        If you need to include honors or AP courses and wish to use a weighted version of your custom
+                        grading
+                        scale, you will need to add a separate, weighted version of your scale for each.
+                    </p>
+                    <p>
+                        You may set the grading scale each transcript uses at the top of the <i
+                            class="fas fa-chalkboard-teacher"></i> Academics page.
+                    </p>
+                </details>
+                <h2>Printing Transcripts</h2>
+                <details>
+                    <summary>One page transcript</summary>
+                    <p>
+                        The print version of your transcript is formatted to save as much space as
+                        possible. It can fit a maximum of 15 courses per year on a single page.
+                    </p>
+                </details>
+
+                <details>
+                    <summary>International Addresses</summary>
+                    <p>
+                        Addresses outside the United States are displayed as entered with
+                        the country added as the last line.
+                    </p>
+                </details>
+
+                <details>
+                    <summary>Print settings</summary>
+                    <p>
+                        The print settings are displayed whenever you print your transcript.
+                        Your transcript can be printed from the <i class="fas fa-signature"></i> Signature
+                        page of the transcript editor or by clicking the <i class="fas fa-print"></i> icon
+                        in the list of transcripts in your <a href="{{url_for('basic.index')}}">dashboard</a>.
+                    </p>
+                </details>
+
+                <details>
+                    <summary>Organize courses by subject</summary>
+                    <p>
+                        You may print your transcripts with the courses organized by by subject.
+                        This format will organize courses using their category field. Any course
+                        without a value in the category field will be placed in the "Other" category.
+                        This setting may be turned on in the Print Settings before printing your transcript.
+                    </p>
+                </details>
+                <details>
+                    <summary>Unweighted GPA</summary>
+                    <p>
+                        This setting may be turned on in the Print Settings before printing your transcript.
+                        It removes weighting from Honors and AP courses and grades them the same as normal high school
+                        courses.
+                    </p>
+                </details>
+                <h2>Account</h2>
+                <details>
+                    <summary>Updating account information</summary>
+                    <p>
+                        You can update your name and email address on the <a
+                            href="{{ url_for('basic.account_settings') }}">Account</a>
+                        tab in your <a href="{{url_for('basic.index')}}">dashboard</a>. To change your password, click
+                        the <strong>Change Password</strong> link and
+                        fill out the form.
+                    </p>
+                </details>
+                <details>
+                    <summary>Subscription Status</summary>
+                    <p>
+                        The status of your subscription is displayed on the <a
+                            href="{{ url_for('basic.account_settings') }}">Account</a>
+                        tab of your <a href="{{url_for('basic.index')}}">dashboard</a>.
+                    </p>
+                </details>
+                {% if help_sections %}
+                {% for title, section in help_sections.items() %}
+                <details>
+                    <summary>{{ title }}</summary>
+                    {{ section | safe }}
+                </details>
+                {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+This doesn't show up in the final rendering because it's outside a block.
+Please keep it that way.
+<details>
+    <summary></summary>
+    <p>
+
+    </p>
+</details>

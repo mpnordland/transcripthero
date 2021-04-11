@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% from "_macros.html" import render_field_with_errors, render_field %}
+{% block title %}Login{% endblock %}
+{% block head %}
+{% if not config['NO_DEFAULT_CSS'] %}
+<link rel="stylesheet" href="{{ url_for('static', filename='account.css') }}">
+{% endif %}
+<style>
+    input[type="submit"] {
+        margin: 6rem auto 0 auto;
+    }
+</style>
+{% endblock %}
+{% block header %}
+{% if config["SECURITY_REGISTERABLE"] %}
+<li class="navigation-item">
+    <a class="navigation-link button button-outline" href="{{ url_for('security.register') }}">GET STARTED</a>
+</li>
+{% endif %}
+{% endblock %}
+{% block bodyattr%}class="security"{% endblock %}
+{% block content %}
+<div class="row sign-in">
+    <div class="column">
+        <div class="card">
+            <div class="card-content">
+                <h3>Welcome</h3>
+                <form method="POST" action="{{url_for('security.login')}}" name="login_user_form">
+                    {{ login_user_form.hidden_tag() }}
+                    {{ render_field_with_errors(login_user_form.email) }}
+                    {{ render_field_with_errors(login_user_form.password) }}
+                    {{ login_user_form.password.description }}
+                    {{ render_field(login_user_form.submit, class="main") }}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

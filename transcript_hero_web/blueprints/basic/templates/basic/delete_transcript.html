@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% from "_macros.html" import render_field_with_errors, render_field %}
+{% block title %}Delete Transcript{% endblock %}
+
+{% block head %}
+{% if not config['NO_DEFAULT_CSS'] %}
+<link rel="stylesheet" href="{{ url_for('static', filename='account.css') }}">
+{% endif %}
+{% endblock %}
+
+{% block bodyattr %}class="account"{% endblock %}
+{% block content %}
+<div class="row sign-in">
+    <div class="column">
+        <div class="card">
+            <div class="card-content">
+                <h3 class="danger">Delete transcript for {{transcript.student_name}}?</h3>
+                <form method="POST">
+                    {{ delete_form.hidden_tag() }}
+                    <p>
+                        {{ delete_form.delete.description }}
+                    </p>
+                    {{ render_field(delete_form.delete, class="button danger") }}
+                    <p>
+                        <a href="{{url_for('basic.index')}}">No, Cancel</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

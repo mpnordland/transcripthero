@@ -1,0 +1,67 @@
+{% extends 'base.html' %} {% from "_macros.html" import render_radiofield_with_errors %}
+{% block title %}Print Settings{%
+endblock %} {% block head %}
+{% if not config['NO_DEFAULT_CSS'] %}
+<link rel="stylesheet" href="{{ url_for('static', filename='account.css') }}">
+{% endif %}
+<style>
+    div.inline-control>label {
+        font-size: 2.2rem;
+    }
+
+    p {
+        max-width: 50rem;
+        color: black;
+    }
+</style>
+{% endblock %}
+{% block bodyattr %}class="editing"{% endblock %}
+{% block content %}
+<section class="row transcript">
+    <div class="column">
+        <div class="card">
+            <div class="card-content">
+                <h1>Print Settings</h1>
+                {% if one_page_warning %}
+                <p class="danger">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    You have a lot of courses in this transcript. It may not be able to
+                    fit on a single page.
+                </p>
+                {% endif %}
+                <form method="POST">
+                    {{ form.hidden_tag() }}
+                    <div class="inline-control">
+                        {{ render_radiofield_with_errors(form.courses_by_subject) }}
+                    </div>
+                    <p>
+                        This format will organize courses using their
+                        category field. Any course without a value in the
+                        category field will be placed in the "Other"
+                        category.
+                    </p>
+                    <div class="inline-control">
+                        {{ render_radiofield_with_errors(form.unweighted_gpa) }}
+                    </div>
+                    <p>
+                        Removes weighting from Honors and AP courses and
+                        grades them the same as normal high school
+                        courses.
+                    </p>
+                    <div class="inline-control">
+                        {{ render_radiofield_with_errors(form.hide_unfinished_courses) }}
+                    </div>
+                    <p>
+                        Courses without a grade or with the grade set to "IP"
+                        for in progress or "SPR" for spring will not be shown
+                        on the printed transcript. These courses are never
+                        counted when calculating the GPA or total credits.
+                    </p>
+                    <button class="button" name="button" value="print-save">Print and Save</button>
+                    <button class="button button-outline" name="button" value="save">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% from "_macros.html" import render_field_with_errors, render_field, render_field_errors %}
+
+{% block title %}Get started{% endblock %}
+
+{% block head %}
+{% if not config['NO_DEFAULT_CSS'] %}
+<link rel="stylesheet" href="{{ url_for('static', filename='account.css') }}">
+{% endif %}
+{% endblock %}
+{% block bodyattr%}class="security"{% endblock %}
+{% block header %}
+<li class="navigation-item">
+    <a class="navigation-link button button-outline" href="{{ url_for('security.login') }}">LOGIN</a>
+</li>
+{% endblock %}
+
+{% block content %}
+<div class="row register ">
+    <div class="column">
+        <div class="card">
+            <div class="card-content">
+                <div class="row">
+                    <div class="column plan-information">
+                        <h1>Get Started</h1>
+                        {{ pay_plans | safe }}
+                    </div>
+                    <div class="column">
+                        <form method="POST" action="{{url_for('security.register')}}" name="register_user_form"
+                            id="register_user_form" class="payment">
+                            {{ register_user_form.hidden_tag() }}
+                            {{ render_field_with_errors(register_user_form.name) }}
+                            {{ render_field_with_errors(register_user_form.email) }}
+                            {{ render_field_with_errors(register_user_form.password) }}
+                            {% if register_user_form.password_confirm %}
+                            {{ render_field_with_errors(register_user_form.password_confirm) }}
+                            {% endif %}
+                            {% if pay_include %}
+                            {% set payment_errors = render_field_errors(register_user_form.payment_token) %}
+                            {% include pay_include %}
+                            {% else %}
+                            {{ render_field(register_user_form.submit, class="main") }}
+                            {% endif %}
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends 'base.html' %} {% from "_macros.html" import render_field_with_errors, render_field_with_errors_no_label,
+render_div_table_field_with_errors,
+render_field %}
+{% block title %}{% if grading_scale.name %}Edit {{grading_scale.name}}{% else %}New Grading Scale{% endif %}{%
+endblock %} {% block head %}
+{% if not config['NO_DEFAULT_CSS'] %}
+<link rel="stylesheet" href="{{ url_for('static', filename='account.css') }}">
+{% endif %}
+{% endblock %}
+{% block bodyattr %}class="editing"{% endblock %}
+{% block content %}
+<section class="row grading-scale">
+    <div class="column">
+        <div class="card">
+            <div class="card-content">
+                <h1>Custom Grading Scale</h1>
+                <form method="POST" id="grading-scale-form">
+                    {{ form.hidden_tag() }}
+                    {{ render_field_with_errors(form.name)}}
+                    <h3>Edit Grade Increments</h3>
+                    <div class="div-table">
+                        <div class="header">
+                            <span class="cell">Grade Letter</span>
+                            <span class="cell"></span>
+                            <span class="cell">GPA Points</span>
+                            <span class="cell"></span>
+                        </div>
+
+                        {% for increment in form.increments %}
+                        <div class="increment">
+                            {{ render_div_table_field_with_errors(increment.form.name) }}
+                            <div class="cell equals">
+                                =
+                            </div>
+                            {{ render_div_table_field_with_errors(increment.point_value) }}
+                            <div class="cell actions">
+                                <button class="button button-clear danger" name="button"
+                                    value="delete-{{increment.name}}" formnovalidate=""><i
+                                        class="fas fa-times-circle"></i></button>
+                            </div>
+                        </div>
+                        {% else %}
+                        <div class="increment first-run">
+                            <div class="cell">
+                                Name your grading scale then save to add grade increments
+                            </div>
+                            <div class="cell equals">
+                            </div>
+                            <div class="cell">
+                            </div>
+                            <div class="cell actions">
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div>
+                        <button name="button" class="button button-outline" value="add-grade-increment" {% if not
+                            grading_scale.id %}disabled{% endif %}>+
+                            Add Grade Increment</button>
+                    </div>
+                </form>
+            </div>
+            <div class="buttons">
+                <button form="grading-scale-form" class="button button-outline" name="button" value="save-continue">Save
+                    and Continue</button>
+                <button form="grading-scale-form" class="button" name="button" value="save">Done</button>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

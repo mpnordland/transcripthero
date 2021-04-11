@@ -1,0 +1,32 @@
+{% extends 'basic/transcript_base.html' %}
+{% block student_pip %}checked{% endblock %}
+{% block school_pip %}checked{% endblock %}
+{% block academics_pip %}checked{% endblock %}
+{% block signature_pip %}full{% endblock %}
+{% block form %}
+{{ form.hidden_tag() }}
+<input type="hidden" value="{{page}}" name="page">
+{{ render_field_with_errors(form.signature_title)}}
+{{render_field_with_errors(form.signature_date)}}
+
+{% if transcript.signature_image %}
+<p>
+    <img src="{{ url_for('basic.transcript_signature_image', transcript_id=transcript.id) }}"
+        alt="Image of signature for transcript">
+</p>
+<button class="button button-outline" name="button" value="remove-signature" formnovalidate="">Remove Signature</button>
+{% else %}
+{{ render_field_with_errors(form.signature_image_file)}}
+<p class="description">
+    Optional. Don't upload an image if you want to sign the physical copy.<br>
+    An image of 200 x 30 pixels with a pure white background works best.<br>
+    Please make sure your image is rotated correctly.
+</p>
+{% endif %}
+
+{{ render_field_with_errors(form.notes)}}
+
+{% endblock %}
+{% block next_button %}
+<button form="transcript_form" class="button" name="button" value="save-print">Print</button>
+{% endblock %}

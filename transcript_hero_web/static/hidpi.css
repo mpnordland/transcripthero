@@ -1,0 +1,34 @@
+@media only screen and (min-width: 320px) {
+  /* Small screen, non-retina */
+  /* This is considered the default display. Don't downgrade to it, upgrade from it */
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2) and (min-width: 320px), only screen and ( min--moz-device-pixel-ratio: 2) and (min-width: 320px), only screen and ( -o-min-device-pixel-ratio: 2/1) and (min-width: 320px), only screen and ( min-device-pixel-ratio: 2) and (min-width: 320px), only screen and ( min-resolution: 192dpi) and (min-width: 320px), only screen and ( min-resolution: 2dppx) and (min-width: 320px) {
+  /* Small screen, retina, stuff to override above media query */
+  body.editing {
+    background-image: url("/static/img/hidpi/cole-keister-291568-unsplash.jpg");
+  }
+  body.security {
+    background-image: url("/static/img/hidpi/david-pennington-562462-unsplash.jpg");
+  }
+  body.account {
+    background-image: url("/static/img/hidpi/rawpixel-com-577494-unsplash.jpg");
+  }
+  .hero {
+    background-image: url("/static/img/hidpi/joanna-kosinska-129039-unsplash.jpg");
+  }
+}
+
+@media only screen and (min-width: 700px) {}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2) and (min-width: 700px), only screen and ( min--moz-device-pixel-ratio: 2) and (min-width: 700px), only screen and ( -o-min-device-pixel-ratio: 2/1) and (min-width: 700px), only screen and ( min-device-pixel-ratio: 2) and (min-width: 700px), only screen and ( min-resolution: 192dpi) and (min-width: 700px), only screen and ( min-resolution: 2dppx) and (min-width: 700px) {
+  /* Medium screen, retina, stuff to override above media query */
+}
+
+@media only screen and (min-width: 1300px) {
+  /* Large screen, non-retina */
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2) and (min-width: 1300px), only screen and ( min--moz-device-pixel-ratio: 2) and (min-width: 1300px), only screen and ( -o-min-device-pixel-ratio: 2/1) and (min-width: 1300px), only screen and ( min-device-pixel-ratio: 2) and (min-width: 1300px), only screen and ( min-resolution: 192dpi) and (min-width: 1300px), only screen and ( min-resolution: 2dppx) and (min-width: 1300px) {
+  /* Large screen, retina, stuff to override above media query */
+}

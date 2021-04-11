@@ -1,0 +1,28 @@
+{% extends 'base.html' %} {% from "_macros.html" import render_field_errors %}
+{% block title %}Payment Information{% endblock %}
+{% block head %}
+{% if not config['NO_DEFAULT_CSS'] %}
+<link rel="stylesheet" href="{{ url_for('static', filename='account.css') }}">
+{% endif %}
+{% endblock %}
+{% block bodyattr %}class="editing"{% endblock %}
+{% block content %}
+<section class="row transcript">
+    <div class="column">
+        <div class="card">
+            <div class="card-content">
+                <h1>Payment Information</h1>
+                <form method="POST" class="payment">
+                    {{ form.hidden_tag() }}
+                    {% if pay_include %}
+                    {% set payment_errors = render_field_errors(form.payment_token) %}
+                    {% include pay_include %}
+                    {% else %}
+                    <button class="button" name="button" value="save">Save</button>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
